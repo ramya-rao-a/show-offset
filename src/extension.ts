@@ -23,10 +23,28 @@ export function activate(context: vscode.ExtensionContext) {
         statusBarEntry.text = `Offset: ${offset}`;
     }
 
+    const goToOffset = (args) => {
+        let editor = vscode.window.activeTextEditor;
+        if (!editor || (args && typeof args !== 'number')) {
+            return;
+        }
+        let maxOffset = editor.document.getText().length;
+        let offsetPromise = args ? Promise.resolve(args) : vscode.window.showInputBox({ prompt: `Type offset between 0 and ${maxOffset}` });
+        offsetPromise.then((offset) => {
+            let offsetNumber = /^[\d]+$/.test(offset) ? Number(offset) : -1;
+            if (offsetNumber < 0 || offsetNumber > maxOffset) {
+                return;
+            }
+            const newPosition = editor.document.positionAt(offsetNumber);
+            editor.selection = new vscode.Selection(newPosition, newPosition);
+        });
+    }
+
     updateOffset();
     statusBarEntry.show();
 
     vscode.window.onDidChangeTextEditorSelection(updateOffset, null, context.subscriptions);
+    context.subscriptions.push(vscode.commands.registerCommand('showoffset.goToOffset', goToOffset));
 
     vscode.workspace.onDidChangeConfiguration(() => {
         let updatedConfig = vscode.workspace.getConfiguration('showoffset');

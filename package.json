@@ -2,7 +2,7 @@
     "name": "show-offset",
     "displayName": "show-offset",
     "description": "Show character or byte offset of cursor in the status bar",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "ramyaraoa",
     "engines": {
         "vscode": "^1.14.0"
@@ -14,7 +14,22 @@
         "*"
     ],
     "main": "./out/src/extension",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ramya-rao-a/show-offset.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ramya-rao-a/show-offset/issues"
+    },
     "contributes": {
+        "commands": [
+            {
+                "command": "showoffset.goToOffset",
+                "title": "ShowOffset: Go to offset",
+                "description": "Go to given offset"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "Show Offset configuration",
