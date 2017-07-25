@@ -1,7 +1,11 @@
 # Change Log
-All notable changes to the "show-offset" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## 0.0.3
+Reveal cursor if it is out of viewport after using the command `Showoffset: Got to offset`
 
-## [Unreleased]
-- Initial release
+## 0.0.2
+Command `Showoffset: Got to offset` to navigate your cursor to given offset.
+
+## 0.0.1
+Initial release with cursor offset being shown in the status bar.
+You can set the setting `showoffset.offsetType` to either `character` or `byte`. Default is `character`.

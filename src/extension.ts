@@ -37,6 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
             const newPosition = editor.document.positionAt(offsetNumber);
             editor.selection = new vscode.Selection(newPosition, newPosition);
+            editor.revealRange(editor.selection);
         });
     }
 
