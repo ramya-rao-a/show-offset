@@ -35,14 +35,13 @@ export function activate(context: vscode.ExtensionContext) {
         statusBarEntry.text = `Offset: ${offset}`;
     }
 
-    const goToOffset = (args) => {
+    const goToOffset = () => {
         let editor = vscode.window.activeTextEditor;
-        if (!editor || (args && typeof args !== 'number')) {
+        if (!editor) {
             return;
         }
         let maxOffset = editor.document.getText().length;
-        let offsetPromise = args ? Promise.resolve(args) : vscode.window.showInputBox({ prompt: `Type offset between 0 and ${maxOffset}` });
-        offsetPromise.then((offset) => {
+        vscode.window.showInputBox({ prompt: `Type offset between 0 and ${maxOffset}` }).then((offset) => {
             let offsetNumber = /^[\d]+$/.test(offset) ? Number(offset) : -1;
             if (offsetNumber < 0 || offsetNumber > maxOffset) {
                 return;
