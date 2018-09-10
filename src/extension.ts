@@ -5,6 +5,16 @@ export function activate(context: vscode.ExtensionContext) {
     let offsetType = 'character';
     let statusBarEntry: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
 
+    const updateOffsetType = () => {
+        let updatedConfig = vscode.workspace.getConfiguration('showoffset');
+        if (offsetType !== updatedConfig['offsetType']
+            && (updatedConfig['offsetType'] === 'character'
+                || updatedConfig['offsetType'] === 'byte')) {
+            offsetType = updatedConfig['offsetType'];
+            updateOffset();
+        }
+    };
+
     const updateOffset = () => {
         let editor = vscode.window.activeTextEditor;
         if (!editor) {
@@ -42,19 +52,14 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     updateOffset();
+    updateOffsetType();
     statusBarEntry.show();
 
     vscode.window.onDidChangeTextEditorSelection(updateOffset, null, context.subscriptions);
     context.subscriptions.push(vscode.commands.registerCommand('showoffset.goToOffset', goToOffset));
 
     vscode.workspace.onDidChangeConfiguration(() => {
-        let updatedConfig = vscode.workspace.getConfiguration('showoffset');
-        if (offsetType !== updatedConfig['offsetType']
-            && (updatedConfig['offsetType'] === 'character'
-                || updatedConfig['offsetType'] === 'byte')) {
-            offsetType = updatedConfig['offsetType'];
-            updateOffset();
-        }
+        updateOffsetType();
     });
 }
 
