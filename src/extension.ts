@@ -40,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (!editor) {
             return;
         }
-        let maxOffset = editor.document.getText().length;
+        let maxOffset = offsetType === 'byte' ? Buffer.byteLength(editor.document.getText()) : editor.document.getText().length;
         vscode.window.showInputBox({ prompt: `Type offset between 0 and ${maxOffset}` }).then((offset) => {
             let offsetNumber = /^[\d]+$/.test(offset) ? Number(offset) : -1;
             if (offsetNumber < 0 || offsetNumber > maxOffset) {
