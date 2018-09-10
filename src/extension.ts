@@ -3,7 +3,9 @@ import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
     let offsetType = 'character';
-    let statusBarEntry: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+    let statusBarEntry: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+    statusBarEntry.tooltip = 'Go to offset';
+    statusBarEntry.command = 'showoffset.goToOffset';
 
     const updateOffsetType = () => {
         let updatedConfig = vscode.workspace.getConfiguration('showoffset');
