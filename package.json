@@ -2,7 +2,7 @@
     "name": "show-offset",
     "displayName": "show-offset",
     "description": "Show character or byte offset of cursor in the status bar",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "ramyaraoa",
     "engines": {
         "vscode": "^1.14.0"
